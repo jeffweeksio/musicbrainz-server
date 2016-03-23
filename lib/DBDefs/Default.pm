@@ -271,6 +271,15 @@ sub CACHE_MANAGER_OPTIONS {
     return \%CACHE_MANAGER_OPTIONS
 }
 
+# Sets the TTL for entities stored in memcached, in seconds. On slave servers,
+# this is set to 1 hour by default, to mitigate MBS-8726. On standalone
+# servers, this is set to 0 (meaning no expiration is set), because cache
+# invalidation is already handled by the server in that case.
+sub ENTITY_CACHE_TTL {
+    return 3600 if shift->REPLICATION_TYPE == RT_SLAVE;
+    return 0;
+}
+
 ################################################################################
 # Rate-Limiting
 ################################################################################
@@ -442,6 +451,15 @@ sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 # separately.
 sub RENDERER_HOST { '' }
 sub RENDERER_PORT { 9009 }
+
+# Base URL of external Discourse instance.
+sub DISCOURSE_SERVER { '' }
+# Used to authenticate when synchronizing SSO records.
+# See https://meta.discourse.org/t/discourse-api-documentation/22706
+sub DISCOURSE_API_KEY { '' }
+sub DISCOURSE_API_USERNAME { '' }
+# See https://meta.discourse.org/t/official-single-sign-on-for-discourse/13045
+sub DISCOURSE_SSO_SECRET { '' }
 
 ################################################################################
 # Profiling

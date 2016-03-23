@@ -3,22 +3,21 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import React from 'react';
-import Menu from './Menu';
-import Search from './Search';
+const React = require('react');
+
+const TopMenu = require('./TopMenu');
+const BottomMenu = require('./BottomMenu');
 
 const Header = (props) => (
-  <div id="header">
-    <div id="header-logo">
-      <a href="/" className="logo" title="MusicBrainz">
-        <strong>MusicBrainz</strong>
-      </a>
-      <div>
-        <Search {...props} />
-      </div>
+  <div className="header">
+    <a href="/" className="logo" title="MusicBrainz">
+      <img src="/static/images/layout/header-logo.svg" className="logo" />
+    </a>
+    <div className="right">
+      <TopMenu {...props} />
+      <BottomMenu {...props} />
     </div>
-    <Menu {...props} />
   </div>
 );
 
-export default Header;
+module.exports = Header;

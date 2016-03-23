@@ -3,8 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import React from 'react';
-import {l, lp} from '../../static/scripts/common/i18n';
+const React = require('react');
+
+const {l, lp} = require('../../static/scripts/common/i18n');
 
 let TYPE_OPTIONS = {
   artist:         l('Artist'),
@@ -38,14 +39,14 @@ const searchOptions = (
 );
 
 const Search = () => (
-  <form action={$c.uri_for('/search')} method="get">
-    <input type="text" id="headerid-query" name="query" placeholder={l('search')} required={true} />
+  <form action="/search" method="get">
+    <input type="text" id="headerid-query" name="query" placeholder={l('Search')} required={true} />
     {' '}{searchOptions}{' '}
     <input type="hidden" id="headerid-method" name="method" value="indexed" />
-    <span className="buttons inline">
-      <button type="submit">{l('Search')}</button>
-    </span>
+    <button type="submit">
+      <img src="/static/images/icons/search.svg" />
+    </button>
   </form>
 );
 
-export default Search;
+module.exports = Search;

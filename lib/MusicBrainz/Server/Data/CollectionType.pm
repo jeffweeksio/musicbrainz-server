@@ -7,10 +7,12 @@ use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'collection_type' };
+with 'MusicBrainz::Server::Data::Role::EntityCache';
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
 with 'MusicBrainz::Server::Data::Role::Attribute';
+
+sub _type { 'collection_type' }
 
 sub _table {
     return 'editor_collection_type';
@@ -47,11 +49,14 @@ sub in_use {
         $id);
 }
 
-around '_get_all_from_db' => sub {
-    my ($orig, $self, @args) = @_;
+sub find_by_entity_type {
+    my ($self, $entity_type) = @_;
 
-    return grep { $ENTITIES{$_->entity_type}{collections} } $self->$orig(@args);
-};
+    $self->query_to_list(
+        'SELECT * FROM editor_collection_type WHERE entity_type = ?',
+        [$entity_type],
+    );
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

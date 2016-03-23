@@ -309,7 +309,7 @@ sub _hash_artist_credit {
             join(',',
                  $_->{name},
                  $_->{artist}{id} // -1)
-            . (!$visible_only ? ',' . $_->{join_phrase} || '' : '')
+            . (!$visible_only ? ',' . $_->{join_phrase} // '' : '')
             .
         ']'
     } @{ $artist_credit->{names} });
@@ -390,10 +390,11 @@ sub merge_barcode {
 sub merge_time {
     my ($name, $ancestor, $current, $new) = @_;
 
+    $current = $current->$name ? $current->$name->strftime('%H:%M') : undef;
     return (
-        [ defined $ancestor->{$name} ? $ancestor->{$name} : undef, $ancestor->{$name} ],
-        [ defined $current->$name ? $current->$name->strftime('%H:%M') : undef, $current->$name ],
-        [ defined $new->{$name} ? $new->{$name} : undef, $new->{$name} ],
+        [$ancestor->{$name}, $ancestor->{$name}],
+        [$current, $current],
+        [$new->{$name}, $new->{$name}],
     );
 }
 

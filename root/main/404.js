@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import React from 'react';
-import {l} from '../static/scripts/common/i18n';
-import Layout from '../layout';
+const React = require('react');
+
+const Layout = require('../layout');
+const {l} = require('../static/scripts/common/i18n');
 
 // Please try and keep the WikiDoc templates (doc/error.tt & doc/bare_error.tt)
 // looking similar to how this template looks.
@@ -24,7 +25,7 @@ const _404 = (props) => (
         </p>}
       <p>
         {l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
-           {__react: true, doc: '/doc/MusicBrainz_Documentation', faq: doc_link('FAQ')})}
+           {__react: true, doc: '/doc/MusicBrainz_Documentation', faq: '/doc/FAQ'})}
       </p>
       <p>
         {l('Found a broken link on our site? Please {report|report a bug} and include any error message that is shown above.',
@@ -37,4 +38,4 @@ const _404 = (props) => (
   </Layout>
 );
 
-export default _404;
+module.exports = _404;

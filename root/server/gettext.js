@@ -5,12 +5,12 @@
 
 'use strict';
 
-import fs from 'fs';
-import path from 'path';
-import Gettext from 'node-gettext';
+const fs = require('fs');
+const Gettext = require('node-gettext');
+const path = require('path');
 
 const EN_HANDLE = new Gettext();
-const GETTEXT_HANDLES = new Map();
+const GETTEXT_HANDLES = {};
 const PO_DIR = path.resolve(__dirname, '../../po');
 
 const TEXT_DOMAINS = [
@@ -25,7 +25,7 @@ const TEXT_DOMAINS = [
   //'statistics',
 ];
 
-export function findObjectFile(domain, lang, ext) {
+function findObjectFile(domain, lang, ext) {
   let fpath = path.resolve(PO_DIR, `${domain}.${lang}.${ext}`);
 
   try {
@@ -45,7 +45,7 @@ export function findObjectFile(domain, lang, ext) {
   return fpath;
 }
 
-export function loadMoFiles(lang) {
+function loadMoFiles(lang) {
   let gettext = new Gettext();
 
   TEXT_DOMAINS.forEach(domain => {
@@ -55,16 +55,16 @@ export function loadMoFiles(lang) {
     );
   });
 
-  GETTEXT_HANDLES.set(lang, gettext);
+  GETTEXT_HANDLES[lang] = gettext;
   return gettext;
 }
 
-export function getHandle(lang) {
+function getHandle(lang) {
   let handle;
   if (!lang) {
     handle = EN_HANDLE;
-  } else if (GETTEXT_HANDLES.has(lang)) {
-    handle = GETTEXT_HANDLES.get(lang) || EN_HANDLE;
+  } else if (GETTEXT_HANDLES[lang]) {
+    handle = GETTEXT_HANDLES[lang] || EN_HANDLE;
   } else if (lang === 'en') {
     handle = EN_HANDLE;
   } else {
@@ -72,13 +72,22 @@ export function getHandle(lang) {
       handle = loadMoFiles(lang);
     } catch (e) {
       console.warn(e);
-      GETTEXT_HANDLES.set(lang, null);
+      GETTEXT_HANDLES[lang] = null;
       handle = EN_HANDLE;
     }
   }
   return handle;
 }
 
-export function clearHandles() {
-  GETTEXT_HANDLES.clear();
+function clearHandles() {
+  for (let key in GETTEXT_HANDLES) {
+    if (GETTEXT_HANDLES.hasOwnProperty(key)) {
+      delete GETTEXT_HANDLES[key];
+    }
+  }
 }
+
+exports.findObjectFile = findObjectFile;
+exports.loadMoFiles = loadMoFiles;
+exports.getHandle = getHandle;
+exports.clearHandles = clearHandles;

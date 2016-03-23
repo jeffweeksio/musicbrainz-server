@@ -89,6 +89,17 @@ sub contains_entity {
         $collection_id, $id) ? 1 : 0;
 }
 
+sub is_empty {
+    my ($self, $type, $collection_id) = @_;
+
+    my $non_empty = $self->sql->select_single_value(
+        "SELECT 1 FROM editor_collection_$type WHERE collection = ?",
+        $collection_id,
+    );
+
+    return $non_empty ? 0 : 1;
+}
+
 sub merge_entities {
     my ($self, $type, $new_id, @old_ids) = @_;
 
@@ -125,33 +136,49 @@ sub get_first_collection {
     return $self->sql->select_single_value($query, $editor_id);
 }
 
-sub find_all_by_editor {
-    my ($self, $id, $show_private, $entity_type) = @_;
-    my $extra_conditions = (defined $entity_type) ? "AND ct.entity_type = '$entity_type'" : "";
-    if (!$show_private) {
-        $extra_conditions .= "AND editor_collection.public=true ";
+sub find_by {
+    my ($self, $opts, $limit, $offset) = @_;
+
+    my (@conditions, @args);
+
+    if (my $editor_id = $opts->{editor_id}) {
+        push @conditions, 'editor = ?';
+        push @args, $editor_id;
     }
 
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                    JOIN editor_collection_type ct
-                        ON editor_collection.type = ct.id
-                 WHERE editor=? $extra_conditions";
+    if (my $entity_type = $opts->{entity_type}) {
+        push @conditions,
+            'EXISTS (SELECT 1 FROM editor_collection_type ct' .
+                    ' WHERE ct.id = editor_collection.type AND ct.entity_type = ?)';
+        push @args, $entity_type;
 
-    $query .= "ORDER BY musicbrainz_collate(editor_collection.name)";
-    $self->query_to_list($query, [$id]);
-}
+        if (my $entity_id = $opts->{entity_id}) {
+            push @conditions,
+                "EXISTS (SELECT 1 FROM editor_collection_$entity_type ce" .
+                        " WHERE editor_collection.id = ce.collection AND ce.$entity_type = ?)";
+            push @args, $entity_id;
+        }
+    }
 
-sub find_all_by_entity {
-    my ($self, $type, $id) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                    JOIN editor_collection_$type ce
-                        ON editor_collection.id = ce.collection
-                 WHERE ce.$type = ? ";
+    if (my $editor_id = $opts->{show_private}) {
+        push @conditions, '(editor_collection.public = true OR editor = ?)';
+        push @args, $editor_id;
+    } else {
+        push @conditions, 'editor_collection.public = true';
+    }
 
-    $query .= "ORDER BY musicbrainz_collate(name)";
-    $self->query_to_list($query, [$id]);
+    my $query =
+        'SELECT ' . $self->_columns .
+        '  FROM ' . $self->_table . ' ' .
+        ' WHERE ' . join(' AND ', @conditions) .
+        ' ORDER BY musicbrainz_collate(editor_collection.name), editor_collection.id';
+
+    if (defined $limit) {
+        return $self->query_to_list_limited($query, \@args, $limit, $offset);
+    } else {
+        my @result = $self->query_to_list($query, \@args);
+        return (\@result, scalar @result);
+    }
 }
 
 sub load {
@@ -194,13 +221,18 @@ sub load_entity_count {
 sub update {
     my ($self, $collection_id, $update) = @_;
     croak '$collection_id must be present and > 0' unless $collection_id > 0;
+
     my $row = $self->_hash_to_row($update);
+    my $collection = $self->get_by_id($collection_id);
+    $self->c->model('CollectionType')->load($collection);
+    my $old_entity_type = $collection->type->entity_type;
 
-    my $collection = $self->c->model('Collection')->get_by_id($collection_id);
-    $self->c->model('Collection')->load_entity_count($collection);
+    if (defined($row->{type}) && $collection->type_id != $row->{type} &&
+            !$self->is_empty($old_entity_type, $collection->id)) {
+        my $new_type = $self->c->model('CollectionType')->get_by_id($row->{type});
 
-    if (defined($row->{type}) && $collection->type_id != $row->{type}) {
-        die "Cannot change the type of a non-empty collection" if $collection->entity_count != 0;
+        die "The collection type must match the type of entities it contains."
+            if $old_entity_type ne $new_type->entity_type;
     }
 
     $self->sql->auto_commit;

@@ -14,9 +14,13 @@ with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {}, aliases => {copy_stash => ['aliases']}}
+};
+with 'MusicBrainz::Server::Controller::Role::Collection' => {
+    entity_type => 'area'
 };
 
 use Data::Page;
@@ -155,6 +159,27 @@ sub places : Chained('load')
     });
     $c->model('PlaceType')->load(@$places);
     $c->stash( places => $places );
+}
+
+after [qw( show collections details tags aliases artists labels releases places )] => sub {
+    my ($self, $c) = @_;
+    $self->_stash_collections($c);
+};
+
+=head2 users
+
+Shows editors located in this area.
+
+=cut
+
+sub users : Chained('load') {
+    my ($self, $c) = @_;
+    my $editors = $self->_load_paged($c, sub {
+        my ($editors, $total) = $c->model('Editor')->find_by_area($c->stash->{area}->id, shift, shift);
+        $c->model('Editor')->load_preferences(@$editors);
+        ($editors, $total);
+    });
+    $c->stash( editors => $editors );
 }
 
 =head2 WRITE METHODS

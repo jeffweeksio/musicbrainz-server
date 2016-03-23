@@ -141,6 +141,11 @@ msgstr ""
 msgid "A four-string banjo is a banjo with four strings."
 msgstr ""
 
+#. name:glass harp 
+#: DB:instrument/description:765
+msgid "A glass harp is a musical instrument made of upright wine glasses."
+msgstr ""
+
 #. name:gong bass drum 
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
@@ -193,6 +198,20 @@ msgstr ""
 msgid ""
 "A lithophone is a musical instrument consisting of a rock or pieces of rock "
 "which are struck to produce musical notes."
+msgstr ""
+
+#. name:mandolute 
+#: DB:instrument/description:766
+msgid ""
+"A mandolute is a North African fretted string instrument which combines a "
+"traditional oud string format with five pairs of metal strings"
+msgstr ""
+
+#. name:marimba lumina 
+#: DB:instrument/description:767
+msgid ""
+"A marimba lumina is a MIDI controller that lets a musician play music via a "
+"control surface based on the layout of a marimba."
 msgstr ""
 
 #. name:mark tree 
@@ -1783,7 +1802,7 @@ msgstr ""
 #. name:kortholt 
 #: DB:instrument/description:264
 msgid ""
-"The kortholt ia a woodwind instrument that was popular in the Renaissance "
+"The kortholt is a woodwind instrument that was popular in the Renaissance "
 "period."
 msgstr ""
 
@@ -2726,6 +2745,15 @@ msgstr ""
 msgid ""
 "The zhongruan is a Chinese plucked lute, the tenor-ranged size in the ruan "
 "family."
+msgstr ""
+
+#. name:ütőgardon 
+#: DB:instrument/description:768
+msgid ""
+"The ütőgardon is a folk musical instrument played primarily in Transylvania. "
+"It is similar in appearance to a cello, but played percussively like a drum. "
+"Instead of being played with a bow, its strings are plucked and beaten with "
+"a stick."
 msgstr ""
 
 #. name:đing năm 

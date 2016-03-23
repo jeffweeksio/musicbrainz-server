@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import React from 'react';
-import {l} from '../../static/scripts/common/i18n';
-import formatUserDate from '../../utility/formatUserDate';
+const React = require('react');
+
+const {l} = require('../../static/scripts/common/i18n');
+const formatUserDate = require('../../utility/formatUserDate');
 
 const Footer = (props) => {
   let stash = $c.stash;
@@ -18,7 +19,7 @@ const Footer = (props) => {
         {' | '}
         <a href="//wiki.musicbrainz.org/" className="internal">{l('Wiki')}</a>
         {' | '}
-        <a href="http://forums.musicbrainz.org/" className="internal">{l('Forums')}</a>
+        <a href="https://community.metabrainz.org/" className="internal">{l('Forums')}</a>
         {' | '}
         <a href="http://tickets.musicbrainz.org/" className="internal">{l('Bug Tracker')}</a>
         {' | '}
@@ -26,7 +27,7 @@ const Footer = (props) => {
 
         {!!server_details.beta_redirect && [
           ' | ',
-          <a href={$c.uri_for('/set-beta-preference')} className="internal">
+          <a href="/set-beta-preference" className="internal">
             {server_details.is_beta ? l('Stop using beta site') : l('Use beta site')}
           </a>
         ]}
@@ -41,24 +42,28 @@ const Footer = (props) => {
             })
         ]}
 
-        {!!stash.last_replication_date && [
-          <br />,
-          l('Last replication packet received at {datetime}',
-            {datetime: formatUserDate($c.user, stash.last_replication_date)})
-        ]}
+        <If condition={stash.last_replication_date}>
+          <frag>
+            <br />
+            {l('Last replication packet received at {datetime}', {
+                datetime: $c.user ?
+                  formatUserDate($c.user, stash.last_replication_date) :
+                  stash.last_replication_date
+            })}
+          </frag>
+        </If>
       </p>
 
       <p className="right">
-        {l('Cover Art provided by the {caa|Cover Art Archive}. Hosted by {host|Digital West}. Sponsored by: {url1|Google}, {url2|OSUOSL} and {more|others...}.',
+        {l('Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and {supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}.',
            {__react: true,
-            host: 'https://www.digitalwest.com/',
-            url1: 'https://www.google.com/',
-            url2: '//osuosl.org/',
-            more: 'http://metabrainz.org/doc/Sponsors',
+            MeB: 'https://metabrainz.org/',
+            spon: 'https://metabrainz.org/sponsors',
+            supp: 'https://metabrainz.org/supporters',
             caa: '//coverartarchive.org/'})}
       </p>
     </div>
   );
 };
 
-export default Footer;
+module.exports = Footer;

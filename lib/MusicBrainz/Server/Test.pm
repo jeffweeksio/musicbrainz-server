@@ -9,7 +9,7 @@ use FindBin '$Bin';
 use Getopt::Long;
 use HTTP::Headers;
 use HTTP::Request;
-use JSON qw( encode_json );
+use JSON qw( decode_json encode_json );
 use List::UtilsBy qw( nsort_by );
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
@@ -18,11 +18,10 @@ use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::Test::HTML5 qw( xhtml_ok html5_ok );
 use MusicBrainz::WWW::Mechanize;
 use Sql;
-use Template;
 use Test::Builder;
+use Test::Deep qw( cmp_deeply );
 use Test::Differences;
-use Test::JSON import => [qw( is_json is_valid_json )];
-use Test::Mock::Class ':all';
+use Test::JSON import => [qw( is_valid_json )];
 use Test::WWW::Mechanize::Catalyst;
 use Test::XML::SemanticCompare;
 use Test::XPath;
@@ -248,37 +247,6 @@ sub reject_edit
     $c->sql->commit;
 }
 
-our $mock;
-sub mock_context
-{
-    $mock ||= do {
-        my $meta_c = Test::Mock::Class->create_mock_anon_class();
-        $meta_c->add_mock_method('uri_for_action');
-        $meta_c->new_object;
-    };
-    return $mock;
-}
-
-our $tt;
-sub evaluate_template
-{
-    my ($class, $template, %vars) = @_;
-    $tt ||= Template->new({
-        INCLUDE_PATH => "$Bin/../root",
-        TEMPLATE_EXTENSION => '.tt',
-        PLUGIN_BASE => 'MusicBrainz::Server::Plugin',
-        PRE_PROCESS => [
-            'components/common-macros.tt',
-        ]
-    });
-
-    $vars{c} ||= mock_context();
-
-    my $out = '';
-    $tt->process(\$template, \%vars, \$out) || die $tt->error();
-    return $out;
-}
-
 sub old_edit_row
 {
     my ($self, %args) = @_;
@@ -359,6 +327,8 @@ sub _build_ws_test_xml {
     my $validator = schema_validator($args->{version});
 
     return sub {
+        use Test::More;
+
         my ($msg, $url, $expected, $opts) = @_;
         $opts ||= {};
 
@@ -369,10 +339,16 @@ sub _build_ws_test_xml {
                 $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
             }
 
-            $Test->plan(tests => 4);
-
-            $mech->get_ok($end_point . $url, 'fetching');
-            $validator->($mech->content, 'validating');
+            $mech->get($end_point . $url, 'fetching');
+            if ($opts->{response_code}) {
+                $Test->plan(tests => 2);
+                is($mech->res->code, $opts->{response_code});
+            } else {
+                $Test->plan(tests => 4);
+                ok($mech->success);
+                # only do this on success, there's no schema for error messages
+                $validator->($mech->content, 'validating');
+            }
 
             is_xml_same($expected, $mech->content);
             $Test->note($mech->content);
@@ -384,13 +360,12 @@ sub _build_ws_test_json {
     my ($class, $name, $args) = @_;
     my $end_point = '/ws/' . $args->{version};
 
-    my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
-    $mech->default_header("Accept" => "application/json");
-
     return sub {
         my ($msg, $url, $expected, $opts) = @_;
         $opts ||= {};
 
+        my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
+        $mech->default_header("Accept" => "application/json");
         $Test->subtest($msg => sub {
             if (exists $opts->{username} && exists $opts->{password}) {
                 $mech->credentials('localhost:80', 'musicbrainz.org', $opts->{username}, $opts->{password});
@@ -401,11 +376,16 @@ sub _build_ws_test_json {
 
             $Test->plan(tests => 3);
 
-            $mech->get_ok($end_point . $url, 'fetching');
+            $mech->get($end_point . $url, 'fetching');
+            if ($opts->{response_code}) {
+                is($mech->res->code, $opts->{response_code});
+            } else {
+                ok($mech->success);
+            }
+
             is_valid_json($mech->content, "validating (is_valid_json)");
 
-            is_json($mech->content, $expected);
-            $Test->note($mech->content);
+            cmp_deeply(decode_json($mech->content), $expected);
         });
     };
 }
@@ -486,7 +466,7 @@ sub page_test_jsonld {
     my $jsonld = encode('UTF-8', $tx->find_value('//script[@type="application/ld+json"]'));
 
     is_valid_json($jsonld, 'has valid JSON-LD');
-    is_json($jsonld, encode_json($expected), 'has expected JSON-LD');
+    cmp_deeply(decode_json($jsonld), $expected, 'has expected JSON-LD');
 }
 
 1;

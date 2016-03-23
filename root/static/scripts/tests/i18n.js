@@ -3,10 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var React = require('react');
-var ReactDOMServer = require('react-dom/server');
-var test = require('tape');
-var i18n = require('../common/i18n.js');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
+const test = require('tape');
+
+const i18n = require('../common/i18n');
+const commaList = require('../common/i18n/commaList');
+const commaOnlyList = require('../common/i18n/commaOnlyList');
 
 test("i18n.expand", function (t) {
     t.plan(6);
@@ -54,14 +57,24 @@ test("i18n.expand", function (t) {
     );
 });
 
-test("i18n.commaList", function (t) {
+test("commaList", function (t) {
     t.plan(5);
 
-    t.equal(i18n.commaList([]), "", "empty list");
-    t.equal(i18n.commaList(["a"]), "a", "list with one item");
-    t.equal(i18n.commaList(["a", "b"]), "a and b", "list with two items");
-    t.equal(i18n.commaList(["a", "b", "c"]), "a, b and c", "list with three items");
-    t.equal(i18n.commaList(["a", "b", "c", "d"]), "a, b, c and d", "list with four items");
+    t.equal(commaList([]), "", "empty list");
+    t.equal(commaList(["a"]), "a", "list with one item");
+    t.equal(commaList(["a", "b"]), "a and b", "list with two items");
+    t.equal(commaList(["a", "b", "c"]), "a, b and c", "list with three items");
+    t.equal(commaList(["a", "b", "c", "d"]), "a, b, c and d", "list with four items");
+});
+
+test("commaOnlyList", function (t) {
+    t.plan(5);
+
+    t.equal(commaOnlyList([]), "", "empty list");
+    t.equal(commaOnlyList(["a"]), "a", "list with one item");
+    t.equal(commaOnlyList(["a", "b"]), "a, b", "list with two items");
+    t.equal(commaOnlyList(["a", "b", "c"]), "a, b, c", "list with three items");
+    t.equal(commaOnlyList(["a", "b", "c", "d"]), "a, b, c, d", "list with four items");
 });
 
 test('Expanding links for React components', function (t) {

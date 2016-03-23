@@ -21,24 +21,37 @@
 MB.Control.HeaderMenu = function () {
     var self = {};
 
-    self.timeout = null;
-    self.timeout_msecs = 200;
-
-    $('#header-menu > div > ul > li').bind('mouseenter.mb', function (event) {
-        if (self.timeout) {
-            clearTimeout(self.timeout);
-            $('#header-menu ul li ul').css('left', '-10000px');
+    function getLeft(li) {
+        var $li = $(li);
+        if ($li.hasClass('language-selector')) {
+            return '-' + ($li.children('ul:eq(0)').outerWidth() - $li.outerWidth()) + 'px';
         }
+        return 'auto';
+    }
 
-        $(this).children('ul').css('left', 'auto');
+    $('.header .menu-header').on('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        var ul = $(this).siblings('ul');
+        $('.header ul.menu li ul').not(ul).css('left', '-10000px');
+        var isClosing = ul.css('left') !== '-10000px';
+        ul.css('left', isClosing ? '-10000px' : getLeft(this.parentNode));
+        $('.header .menu-header').parent().removeClass('fake-active');
+        if (!isClosing) {
+            $(this).parent().toggleClass('fake-active');
+        }
     });
 
-    $('#header-menu ul li').bind('mouseleave.mb', function (event) {
-        var ul = $(this).children('ul');
+    $('body').on('click', function (event) {
+        // clicks outside of the menu (anything that reaches the body) should
+        // close the menu
+        $('.header ul.menu li ul').css('left', '-10000px');
+        $('.header .menu-header').parent().removeClass('fake-active');
+    });
 
-        self.timeout = setTimeout(function () {
-            ul.css('left', '-10000px');
-        }, self.timeout_msecs);
+    $('ul.menu > li > ul').on('click', function (event) {
+        // prevent clicks on the menu itself from reaching the body, per above
+        event.stopPropagation();
     });
 
     return self;

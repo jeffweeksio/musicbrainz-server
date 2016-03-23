@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import React from 'react';
-import descriptiveLink from '../../static/scripts/common/utility/descriptiveLink';
-import {l} from '../../static/scripts/common/i18n';
+const React = require('react');
+
+const {l} = require('../../static/scripts/common/i18n');
+const DescriptiveLink = require('../../static/scripts/common/components/DescriptiveLink');
 
 const MergeHelper = () => (
   <div id="current-editing">
@@ -16,7 +17,9 @@ const MergeHelper = () => (
         {$c.stash.to_merge.map(entity =>
           <li>
             <input type="checkbox" id={`remove.${entity.id}`} name="remove" value={entity.id} />
-            <label htmlFor={`remove.${entity.id}`}>{descriptiveLink(entity)}</label>
+            <label htmlFor={`remove.${entity.id}`}>
+              <DescriptiveLink entity={entity} />
+            </label>
           </li>
         )}
       </ul>
@@ -38,4 +41,4 @@ const MergeHelper = () => (
   </div>
 );
 
-export default MergeHelper;
+module.exports = MergeHelper;

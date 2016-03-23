@@ -3,13 +3,14 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import React from 'react';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import MergeHelper from './components/MergeHelper';
-import * as manifest from '../static/manifest';
-import {l} from '../static/scripts/common/i18n';
-import getCookie from '../static/scripts/common/utility/getCookie';
+const React = require('react');
+
+const Footer = require('./components/Footer');
+const Header = require('./components/Header');
+const MergeHelper = require('./components/MergeHelper');
+const manifest = require('../static/manifest');
+const {l} = require('../static/scripts/common/i18n');
+const getCookie = require('../static/scripts/common/utility/getCookie');
 
 let canonRegexp = new RegExp('^(https?:)?//' + process.env.WEB_SERVER);
 function canonicalize(url) {
@@ -57,8 +58,8 @@ const serverDetailsBanner = (server) => {
     return (
       <div className="banner server-details">
         <p>
-          {l('This is a Musicbrainz mirror server. To edit or make changes to the data please ' +
-             '{uri|return to musicbrainz.org}.', {uri: '//musicbrainz.org'})}
+          {l('This is a MusicBrainz mirror server. To edit or make changes to the data, please {uri|return to musicbrainz.org}.',
+             {uri: '//musicbrainz.org'})}
         </p>
         <DismissBannerButton bannerName="server_details" />
       </div>
@@ -130,7 +131,7 @@ const Layout = (props) => {
 
         {!getCookie('server_details_dismissed_mtime') && serverDetailsBanner(server)}
 
-        {!!(server.alert && server_details.alert_mtime > getCookie('alert_dismissed_mtime', 0)) &&
+        {!!(server.alert && server.alert_mtime > getCookie('alert_dismissed_mtime', 0)) &&
           <div className="banner warning-header">
             <p dangerouslySetInnerHTML={{__html: server.alert}}></p>
             <DismissBannerButton bannerName="alert" />
@@ -139,7 +140,7 @@ const Layout = (props) => {
         {!!server.read_only &&
           <div className="banner server-details">
             <p>
-              {l('The server is temporary in read-only mode for database maintainance.')}
+              {l('The server is temporarily in read-only mode for database maintenance.')}
             </p>
           </div>}
 
@@ -177,4 +178,4 @@ const Layout = (props) => {
   );
 };
 
-export default Layout;
+module.exports = Layout;

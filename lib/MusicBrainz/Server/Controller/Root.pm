@@ -7,6 +7,7 @@ BEGIN { extends 'Catalyst::Controller' }
 use DBDefs;
 use HTTP::Status qw( :constants );
 use ModDefs;
+use MusicBrainz::Server::Constants qw( $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Entity::URL::Sidebar qw( FAVICON_CLASSES );
@@ -199,7 +200,7 @@ sub begin : Private
     $c->stats->enable(1) if DBDefs->DEVELOPMENT_SERVER;
 
     # Can we automatically login?
-    if (!$c->user_exists) {
+    if (!$c->user) {
         $c->forward('/user/cookie_login');
     }
 
@@ -219,7 +220,8 @@ sub begin : Private
             );
         }
 
-        my ($alert, $alert_mtime, $notes_viewed, $notes_updated) = $redis->mget(@cache_keys);
+        my ($notes_viewed, $notes_updated);
+        ($alert, $alert_mtime, $notes_viewed, $notes_updated) = $redis->mget(@cache_keys);
 
         if ($notes_updated && (!defined($notes_viewed) || $notes_updated > $notes_viewed)) {
             $new_edit_notes = 1;
@@ -253,6 +255,7 @@ sub begin : Private
         favicon_css_classes => FAVICON_CLASSES,
         new_edit_notes => $new_edit_notes,
         new_edit_notes_mtime => $new_edit_notes_mtime,
+        contact_url => $CONTACT_URL,
     );
 
     # Setup the searches on the sidebar.

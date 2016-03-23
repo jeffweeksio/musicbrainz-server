@@ -4,6 +4,11 @@ use MooseX::Role::Parameterized;
 
 parameter 'entity_name' => (
     isa => 'Str',
+    required => 0
+);
+
+parameter 'entity_type' => (
+    isa => 'Str',
     required => 1
 );
 
@@ -16,7 +21,8 @@ role
 {
     my $params = shift;
     my %extra = @_;
-    my $entity_name = $params->entity_name;
+    my $entity_type = $params->entity_type;
+    my $entity_name = $params->entity_name // $entity_type;
     my $method_name = $params->method_name // 'collections';
 
     $extra{consumer}->name->config(
@@ -27,28 +33,39 @@ role
 
     method _all_collections => sub {
         my ($self, $c) = @_;
-        return [ $c->model('Collection')->find_all_by_entity($entity_name, $c->stash->{$entity_name}->id) ];
+        my ($collections) = $c->model('Collection')->find_by({
+            entity_id => $c->stash->{$entity_name}->id,
+            entity_type => $entity_type,
+            show_private => $c->user_exists ? $c->user->id : undef,
+        });
+        $collections;
     };
 
     # Stuff that has the side bar and thus needs to display collection information
     method _stash_collections => sub {
         my ($self, $c) = @_;
 
-        my @collections;
+        my $collections;
         my %containment;
+        my $entity_collections = $self->_all_collections($c);
+        my %entity_collections_map = map { $_->id => 1 } @$entity_collections;
+
         if ($c->user_exists) {
             # Make a list of collections and whether this entity is contained in them
-            @collections = $c->model('Collection')->find_all_by_editor($c->user->id, 1, $entity_name);
-            foreach my $collection (@collections) {
-                $containment{$collection->id} = 1
-                  if ($c->model('Collection')->contains_entity($entity_name, $collection->id, $c->stash->{$entity_name}->id));
+            ($collections) = $c->model('Collection')->find_by({
+                editor_id => $c->user->id,
+                entity_type => $entity_type,
+                show_private => $c->user->id,
+            });
+            foreach my $collection (@$collections) {
+                $containment{$collection->id} = 1 if $entity_collections_map{$collection->id};
             }
         }
 
         $c->stash
-          (collections => \@collections,
+          (collections => $collections,
            containment => \%containment,
-           all_collections => $self->_all_collections($c),
+           all_collections => $entity_collections,
           );
     };
 
@@ -77,7 +94,7 @@ View a list of collections that this work has been added to.
         $c->model('Editor')->load(@public_collections);
 
         $c->stash
-          (entity_type => $entity_name,
+          (entity_type => $entity_type,
            public_collections => \@public_collections,
            private_collections => $private_collections,
            template => 'entity/collections.tt',

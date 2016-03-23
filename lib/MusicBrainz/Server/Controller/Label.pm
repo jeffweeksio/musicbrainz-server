@@ -25,10 +25,14 @@ with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {show => {copy_stash => [{from => 'releases_jsonld', to => 'releases'}]},
                   aliases => {copy_stash => ['aliases']}}
+};
+with 'MusicBrainz::Server::Controller::Role::Collection' => {
+    entity_type => 'label'
 };
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT $EDIT_LABEL_MERGE );
@@ -114,6 +118,11 @@ sub show : PathPart('') Chained('load')
 }
 
 sub relationships : Chained('load') PathPart('relationships') {}
+
+after [qw( show collections details tags aliases relationships )] => sub {
+    my ($self, $c) = @_;
+    $self->_stash_collections($c);
+};
 
 sub _merge_load_entities
 {

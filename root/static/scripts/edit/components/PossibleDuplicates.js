@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var React = require('react');
-var i18n = require('../../common/i18n');
-import entityLink from '../../common/utility/entityLink';
+const React = require('react');
+
+const EntityLink = require('../../common/components/EntityLink');
+const i18n = require('../../common/i18n');
 
 class PossibleDuplicates extends React.Component {
   render() {
@@ -16,7 +17,7 @@ class PossibleDuplicates extends React.Component {
         <ul>
           {this.props.duplicates.map(dupe =>
             <li key={dupe.gid}>
-              {entityLink(dupe, {target: '_blank'})}
+              <EntityLink entity={dupe} target="_blank" />
             </li>
           )}
         </ul>

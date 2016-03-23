@@ -3,13 +3,13 @@
 # nikki, 2013
 # nikki2 <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2015
+# Maurits Meulenbelt <email address hidden>, 2013-2016
 # Nikolai Prokoschenko <email address hidden>, 2011
 # nikki, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-28 20:17+0000\n"
+"PO-Revision-Date: 2016-02-27 17:37+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1048,7 +1048,7 @@ msgid ""
 "<li>A label buys the rights to a defunct label's catalog, or buys a label (with its catalog) and dismantles it.</li>\n"
 "<li>A bootleg label reissues another label's catalog.</li>\n"
 "</ul>"
-msgstr "Dit beschrijft een situatie waarbij een platenmaatschappij onder eigen naam (een deel van) de catalogus van een andere platenmaatschappij opnieuw uitgeeft. Dit kan gebeuren in tenminste drie gevallen:\n<ul>\n<li>Een platenmaatschappij verwerft de rechten op de catalogus van een andere platenmaatschappij, voor een bepaalde periode in een specifieke regio.</li>\n<li>Een platenmaatschappij koopt de rechten van een verdwenen platenmaatschappij, of koopt een platenmaatschappij (met catalogus) en ontmantelt deze.</li>\n<li>Een uitgever van bootlegs geeft de catalogus van een andere platenmaatschappij opnieuw uit.</li>\n</ul>"
+msgstr "Dit beschrijft een situatie waarbij een platenmaatschappij onder eigen naam (een deel van) de catalogus van een andere platenmaatschappij opnieuw uitgeeft. Dit kan gebeuren in tenminste drie gevallen:\n<ul>\n<li>Een platenmaatschappij verwerft de rechten op de catalogus van een andere platenmaatschappij, voor een bepaalde periode in een specifieke regio.</li>\n<li>Een platenmaatschappij koopt de rechten van een verdwenen platenmaatschappij, of koopt een platenmaatschappij (met catalogus) en ontmantelt haar.</li>\n<li>Een uitgever van bootlegs geeft de catalogus van een andere platenmaatschappij opnieuw uit.</li>\n</ul>"
 
 #: DB:link_type/description:140 DB:link_type/description:31
 msgid ""
@@ -1215,7 +1215,7 @@ msgid ""
 "recordings has not been altered. If the tracks are pitched or blended into "
 "each other, the <a href=\"/relationship/451076df-61cf-46ab-9921-555cab2f050d"
 "\">DJ-mix relationship type</a> may be more appropriate."
-msgstr "Dit geeft aan dat een opname een compilatie is van verschillende andere opnames. Dit is van toepassing op één lange opname die meerdere nummers achter elkaar bevat, waarbij het audiomateriaal van de originele opnames niet veranderd is. Als de nummers in elkaar overlopen of de toonhoogte is aangepast, is de <a href=\"/relationship/451076df-61cf-46ab-9921-555cab2f050d\">DJ-mix relatie</a> misschien toepasselijker."
+msgstr "Dit geeft aan dat een opname een compilatie is van verschillende andere opnames. Dit is van toepassing op één lange opname die meerdere nummers achter elkaar bevat, waarbij het audiomateriaal van de originele opnames niet veranderd is. Als de nummers in elkaar overlopen of de toonhoogte is aangepast, is de <a href=\"/relationship/451076df-61cf-46ab-9921-555cab2f050d\">DJ-mixrelatie</a> misschien toepasselijker."
 
 #: DB:link_type/description:3
 msgid ""
@@ -1588,7 +1588,7 @@ msgid ""
 "This is used to specify that an <a href=\"/doc/Artist\" "
 "title=\"Artist\">artist</a> collaborated on a short-term project, for cases "
 "where artist credits can't be used."
-msgstr "Dit wordt gebruikt om aan te geven dat een <a href=\"/doc/Artist\" title=\"Artist\">artiest</a> samenwerkte op een kortdurend project, in gevallen waarbij vermeldingen niet kunnen worden gebruikt."
+msgstr "Dit wordt gebruikt om aan te geven dat een <a href=\"/doc/Artist\" title=\"Artist\">artiest</a> samenwerkte op een kortdurend project, als de naam van het project niet te splitsen is in de samenwerkende artiesten."
 
 #: DB:link_type/description:288
 msgid ""
@@ -2186,7 +2186,7 @@ msgstr "Dit relatietype kan gebruikt worden om een plaats op MusicBrainz te kopp
 msgid ""
 "This relationship type can be used to link a label to the person(s) who "
 "founded it."
-msgstr "Deze relatie kan worden gebruikt om een platenmaatschappij te koppelen aan de persoon of personen die deze hebben opgericht."
+msgstr "Deze relatie kan worden gebruikt om een platenmaatschappij te koppelen aan de persoon of personen die haar hebben opgericht."
 
 #: DB:link_type/description:832
 msgid ""
@@ -2972,7 +2972,7 @@ msgstr "fanpagina’s"
 #: DB:link_type/link_phrase:116 DB:link_type/link_phrase:832
 #: DB:link_type/long_link_phrase:116 DB:link_type/long_link_phrase:832
 msgid "founded"
-msgstr "richtte op"
+msgstr "oprichter van"
 
 #: DB:link_attribute_type/name:525
 msgid "founder"
@@ -3771,7 +3771,7 @@ msgstr "gemixt bij"
 
 #: DB:link_type/reverse_link_phrase:757 DB:link_type/reverse_link_phrase:758
 msgid "mixed in"
-msgstr "Gemixt in"
+msgstr "gemixt in"
 
 #: DB:link_type/link_phrase:703
 msgid "mixing engineer position at"
@@ -3873,7 +3873,7 @@ msgstr "organist van"
 
 #: DB:link_type/reverse_link_phrase:856
 msgid "organists"
-msgstr "organisten van"
+msgstr "organisten: "
 
 #: DB:link_type/reverse_link_phrase:836
 msgid "originally scheduled as"
@@ -4468,7 +4468,7 @@ msgstr "tournees"
 
 #: DB:link_attribute_type/name:517 DB:link_type/link_phrase:871
 msgid "translated"
-msgstr "vertaler"
+msgstr "vertaald"
 
 #: DB:link_type/reverse_link_phrase:883
 msgid "translated at"
@@ -4960,12 +4960,12 @@ msgstr "{additional:aanvullende} {founder:oprichtende} leden"
 
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
 msgid "{additional} {guest} {solo} performer"
-msgstr "{additional:aanvullende} {guest:gast} {solo:solo} uitvoerend artiest"
+msgstr "{additional:aanvullende} {solo:solo} uitvoerend {guest:gast}artiest"
 
 #: DB:link_type/link_phrase:44 DB:link_type/link_phrase:148
 #: DB:link_type/reverse_link_phrase:44 DB:link_type/reverse_link_phrase:148
 msgid "{additional} {guest} {solo} {instrument:%|instruments}"
-msgstr "{additional:aanvullend} {guest:gast} {solo:solo} {instrument:%|instrumenten}"
+msgstr "{additional:aanvullend} {solo:solo} {guest:gast}{instrument:%|instrumenten}"
 
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149

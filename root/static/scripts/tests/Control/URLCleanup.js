@@ -3,8 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import test from 'tape';
-import {LINK_TYPES, cleanURL, guessType} from '../../edit/URLCleanup';
+const test = require('tape');
+
+const {LINK_TYPES, cleanURL, guessType} = require('../../edit/URLCleanup');
 
 test('Guess type', function (t) {
     var tests = [
@@ -133,6 +134,10 @@ test('Guess type', function (t) {
             ],
             [
                 'artist', 'http://thesession.org/recordings/artists/2836',
+                LINK_TYPES.otherdatabases.artist
+            ],
+            [
+                'artist', 'https://www.triplejunearthed.com/artist/sampa-great',
                 LINK_TYPES.otherdatabases.artist
             ],
             [

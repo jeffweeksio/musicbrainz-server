@@ -1,13 +1,15 @@
 # 
 # Translators:
+# Alex DM <email address hidden>, 2016
+# Davide Bardelli <email address hidden>, 2016
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# salorock <email address hidden>, 2012
+# Luca Salini <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2015-11-17 05:21+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2016-02-23 19:04+0000\n"
+"Last-Translator: Davide Bardelli <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,64 +20,64 @@ msgstr ""
 #. name:Batá drum
 #: DB:instrument/description:457
 msgid "A Batá drum is a double-headed drum originating from Nigeria."
-msgstr ""
+msgstr "Un tamburo Batá è un tamburo a due facce originario della Nigeria."
 
 #. name:kös
 #: DB:instrument/description:739
 msgid "A Turkish drum used in the traditional Ottoman military bands"
-msgstr ""
+msgstr "Un tamburo turco usato dalle tradizionali bande militari ottomane"
 
 #. name:tef
 #: DB:instrument/description:531
 msgid ""
 "A Turkish version of tambourine / daf, made from animal skin and played with"
 " the fingers."
-msgstr ""
+msgstr "Una versione turca del tamburino / daf, fatto di pelle animale e suonato con le dita."
 
 #. name:baroque trumpet
 #: DB:instrument/description:521
 msgid ""
 "A baroque trumpet is a natural trumpet modelled on the instruments used "
 "between the 1500s and the 1700s. It lacks valves but may have vents."
-msgstr ""
+msgstr "Una tromba barocca è una tromba naturale sul modello degli strumenti utilizzati tra il 1500 e il 1700. Manca di valvole, ma può avere prese d'aria."
 
 #. name:barrel organ
 #: DB:instrument/description:490
 msgid ""
 "A barrel organ is a mechanical musical instrument typically operated by a "
 "person turning a crank which turns a barrel which has music encoded onto it."
-msgstr ""
+msgstr "Un organetto è uno strumento meccanico musicale tipicamente fatto funzionare da una persona girando una manovella che fa girare un barile, che ha la musica codificata in esso."
 
 #. name:bass synthesizer
 #: DB:instrument/description:456
 msgid "A bass synthesizer is used to create sounds in the bass range."
-msgstr ""
+msgstr "Un sintetizzatore di bassi è usato per creare suoni nella gamma bassa."
 
 #. name:bell tree
 #: DB:instrument/description:479
 msgid ""
 "A bell tree is a percussion instrument, consisting of vertically nested "
 "inverted metal bowls."
-msgstr ""
+msgstr "Un albero di campanelle (bell tree) è uno strumento a percussione costituito da una serie di campane metalliche di misura crescente inserite su un supporto verticale"
 
 #. name:bicycle bell
 #: DB:instrument/description:743
 msgid ""
 "A bicycle bell is a percussive signaling instrument mounted on a bicycle for"
 " warning pedestrians and other cyclists."
-msgstr ""
+msgstr "Un campanello di bicicletta è uno strumento di segnalazione montato su una bicicletta che permette di avvertire pedoni e altri ciclisti."
 
 #. name:bullroarer
 #: DB:instrument/description:153
 msgid ""
 "A bullroarer consists of a piece of wood attached to a long cord which is "
 "then swung in a circle."
-msgstr ""
+msgstr "Un rombo (bullroarer) è un pezzetto di legno attaccato ad una corda che viene fatto roteare in aria."
 
 #. name:chamber organ
 #: DB:instrument/description:471
 msgid "A chamber organ is a small pipe organ."
-msgstr ""
+msgstr "Un organo da camera è un piccolo organo a canne."
 
 #. name:chime bar
 #: DB:instrument/description:638
@@ -83,27 +85,27 @@ msgid ""
 "A chime bar is a percussion instrument consisting of a tuned metal bar "
 "similar to a glockenspiel bar which is mounted on a wooden resonator and "
 "played with a mallet."
-msgstr ""
+msgstr "Una chime bar è uno strumento a percussione costituito da una barretta metallica accordata simile a quelle di un glockenspiel montata su un supporto risonante in legno. Viene suonata con una bacchetta."
 
 #. name:cuatro
 #: DB:instrument/description:439
 msgid "A class of South-American guitars"
-msgstr ""
+msgstr "Una classe di chitarre sudamericane"
 
 #. name:gut guitar
 #: DB:instrument/description:567
 msgid "A classical guitar strung with gut strings."
-msgstr ""
+msgstr "Una chitarra classica fatta con stringhe di budello."
 
 #. name:nylon guitar
 #: DB:instrument/description:566
 msgid "A classical guitar strung with nylon strings."
-msgstr ""
+msgstr "Una chitarra classica fatta con stringhe di nylon."
 
 #. name:cylindrical drum
 #: DB:instrument/description:658
 msgid "A cylindrical drum is a straight-sided and generally two-headed drum."
-msgstr ""
+msgstr "Un tamburo cilindrico è un tamburo diritto unilaterale e generalmente a due punte."
 
 #. name:descant recorder / soprano recorder
 #: DB:instrument/description:469
@@ -117,19 +119,19 @@ msgstr ""
 msgid ""
 "A dolceola is a musical instrument resembling a miniature piano, but which "
 "is in fact a zither with a keyboard."
-msgstr ""
+msgstr "Una dolceola è uno strumento musicale simile a un pianoforte in miniatura, ma che in realtà è una cetra con una tastiera."
 
 #. name:duck call
 #: DB:instrument/description:649
 msgid "A duck call is a tool used to emulate the sound of a duck."
-msgstr ""
+msgstr "Una richiamo per anatra è uno strumento utilizzato per emulare il suono di un'anatra."
 
 #. name:fife
 #: DB:instrument/description:514
 msgid ""
 "A fife is a small, high-pitched, transverse flute that is similar to the "
 "piccolo, but louder and shriller due to its narrower bore."
-msgstr ""
+msgstr "Un piffero è un piccolo flauto acuto trasversale, che è simile al piccolo, ma più forte e acuto a causa del suo foro più stretto."
 
 #. name:five-string banjo
 #: DB:instrument/description:523
@@ -141,17 +143,22 @@ msgstr ""
 msgid ""
 "A flute is an aerophone or reedless wind instrument that produces its sound "
 "from the flow of air across an opening."
-msgstr ""
+msgstr "Un flauto è uno strumento a fiato privo di ancia. Il suono è prodotto dal passaggio dell'aria attraverso un foro."
 
 #. name:four-string banjo
 #: DB:instrument/description:656
 msgid "A four-string banjo is a banjo with four strings."
 msgstr ""
 
+#. name:glass harp
+#: DB:instrument/description:765
+msgid "A glass harp is a musical instrument made of upright wine glasses."
+msgstr ""
+
 #. name:gong bass drum
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
-msgstr ""
+msgstr "Una grancassa Gong è un grande tamburo, che assomiglia ad un gong."
 
 #. name:guitar synthesizer
 #: DB:instrument/description:763
@@ -200,6 +207,20 @@ msgstr ""
 msgid ""
 "A lithophone is a musical instrument consisting of a rock or pieces of rock "
 "which are struck to produce musical notes."
+msgstr ""
+
+#. name:mandolute
+#: DB:instrument/description:766
+msgid ""
+"A mandolute is a North African fretted string instrument which combines a "
+"traditional oud string format with five pairs of metal strings"
+msgstr ""
+
+#. name:marimba lumina
+#: DB:instrument/description:767
+msgid ""
+"A marimba lumina is a MIDI controller that lets a musician play music via a "
+"control surface based on the layout of a marimba."
 msgstr ""
 
 #. name:mark tree
@@ -360,7 +381,7 @@ msgstr ""
 #. name:Irish harp / clàrsach
 #: DB:instrument/description:355
 msgid "An Irish/Scottish harp."
-msgstr ""
+msgstr "Un'arpa Irlandese/Scozzese"
 
 #. name:archtop guitar
 #: DB:instrument/description:654
@@ -504,7 +525,7 @@ msgstr ""
 #: DB:instrument/description:604
 msgid ""
 "Floppy Drives configured to produce tones while reading, software is used."
-msgstr ""
+msgstr "Floppy Drive utilizzati per produrre suoni durante la lettura tramite software appositi."
 
 #. name:friction idiophone
 #: DB:instrument/description:701
@@ -687,7 +708,7 @@ msgstr ""
 #. name:body percussion
 #: DB:instrument/description:500
 msgid "Percussion performed by parts of the body."
-msgstr ""
+msgstr "Percussione eseguita con parti del corpo."
 
 #. name:foot percussion
 #: DB:instrument/description:478
@@ -780,7 +801,7 @@ msgstr ""
 #. name:Swedish bagpipes
 #: DB:instrument/description:691
 msgid "Swedish bagpipes are a type of bagpipes from Sweden."
-msgstr ""
+msgstr "Le cornamusa svedesi sono un tipo di cornamusa originarie della Svezia."
 
 #. name:tambura
 #: DB:instrument/description:391
@@ -868,7 +889,7 @@ msgstr ""
 msgid ""
 "The Vienna horn is a type of musical horn used primarily in Vienna, Austria,"
 " for playing orchestral or classical music."
-msgstr ""
+msgstr "Il corno viennese è un tipo di corno francese usato prevalentemente nelle orchestre austriache."
 
 #. name:Vietnamese guitar
 #: DB:instrument/description:322
@@ -937,7 +958,7 @@ msgstr ""
 msgid ""
 "The alphorn, or alpine horn, is a conical wood horn used for communication "
 "in mountains."
-msgstr ""
+msgstr "Il corno alpino è un corno conico dritto in legno usato, in origine, per comunicare a distanza sulle montagne."
 
 #. name:alto clarinet
 #: DB:instrument/description:10
@@ -1801,7 +1822,7 @@ msgstr ""
 #. name:kortholt
 #: DB:instrument/description:264
 msgid ""
-"The kortholt ia a woodwind instrument that was popular in the Renaissance "
+"The kortholt is a woodwind instrument that was popular in the Renaissance "
 "period."
 msgstr ""
 
@@ -2082,7 +2103,7 @@ msgstr ""
 msgid ""
 "The post horn is a valveless coiled brass instrument used to signal the "
 "arrival or departure of a post rider or mail coach."
-msgstr ""
+msgstr "Il corno postale è un corno di metallo senza tasti né pistoni usato per segnalare l'arrivo o la partenza di postiglioni e corrieri."
 
 #. name:primero
 #: DB:instrument/description:758
@@ -2894,7 +2915,7 @@ msgstr ""
 #. name:natural horn
 #: DB:instrument/description:522
 msgid "Valveless ancestor of the modern (French) horn."
-msgstr ""
+msgstr "Corno semplice senza tasti né pistoni, antenato del corno (francese) moderno."
 
 #. name:não bạt / chập chõa
 #: DB:instrument/description:272
@@ -2953,22 +2974,22 @@ msgstr ""
 #. name:conch
 #: DB:instrument/description:156
 msgid "conch shell"
-msgstr ""
+msgstr "guscio di conchiglia"
 
 #. name:bombarde
 #: DB:instrument/description:431
 msgid "conical bore double-reed musical instrument from Brittany"
-msgstr ""
+msgstr "strumento ad ancia doppia di forma conica di origine britannica"
 
 #. name:ki pah
 #: DB:instrument/description:307
 msgid "cow horns without fingerholes. with mouthpiece and free reed"
-msgstr ""
+msgstr "corno di mucca senza fori munito di un bocchino contenente un'ancia libera."
 
 #. name:dholak
 #: DB:instrument/description:382
 msgid "dholak, classical North Indian hand drum"
-msgstr ""
+msgstr "tamburo a due facce originario dell'India settentrionale."
 
 #. name:đing buốt
 #: DB:instrument/description:306
@@ -2978,7 +2999,7 @@ msgstr ""
 #. name:hmông flute
 #: DB:instrument/description:312
 msgid "family of Hmông flutes"
-msgstr ""
+msgstr "famiglia dei flauti di Hmông"
 
 #. name:saó ôi flute
 #: DB:instrument/description:310
@@ -3000,9 +3021,9 @@ msgstr ""
 #. name:fretless bass
 #: DB:instrument/description:435
 msgid "variety of bass guitars without frets"
-msgstr ""
+msgstr "un tipo di chitarra basso senza tasti"
 
 #. name:drums
 #: DB:instrument/description:100
 msgid "variously sized drums"
-msgstr ""
+msgstr "tamburi di varia dimensione"

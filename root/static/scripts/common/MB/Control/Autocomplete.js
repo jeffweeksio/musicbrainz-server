@@ -3,12 +3,14 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import _ from 'lodash';
-var i18n = require('../../i18n');
-var clean = require('../../utility/clean');
-var formatTrackLength = require('../../utility/formatTrackLength');
-var isBlank = require('../../utility/isBlank');
-import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
+const _ = require('lodash');
+
+const {ENTITIES, MAX_RECENT_ENTITIES} = require('../../constants');
+const i18n = require('../../i18n');
+const commaOnlyList = require('../../i18n/commaOnlyList');
+const clean = require('../../utility/clean');
+const formatTrackLength = require('../../utility/formatTrackLength');
+const isBlank = require('../../utility/isBlank');
 
 $.widget("ui.autocomplete", $.ui.autocomplete, {
 
@@ -575,7 +577,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
+                     _.escape(commaOnlyList(comment)) + ')</span>');
         }
 
         return $("<li>").append(a).appendTo(ul);
@@ -620,7 +622,7 @@ MB.Control.autocomplete_formatters = {
             }
 
             a.append('<br /><span class="autocomplete-appears">appears on: ' +
-                     _.escape(i18n.commaOnlyList(rgs)) + '</span>');
+                     _.escape(commaOnlyList(rgs)) + '</span>');
         }
         else if (item.appearsOn && item.appearsOn.hits === 0) {
             a.append('<br /><span class="autocomplete-appears">standalone recording</span>');
@@ -629,7 +631,7 @@ MB.Control.autocomplete_formatters = {
         if (item.isrcs && item.isrcs.length)
         {
             a.append('<br /><span class="autocomplete-isrcs">isrcs: ' +
-                     _.escape(i18n.commaOnlyList(item.isrcs)) + '</span>');
+                     _.escape(commaOnlyList(item.isrcs)) + '</span>');
         }
 
         return $("<li>").append(a).appendTo(ul);
@@ -742,7 +744,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
+                     _.escape(commaOnlyList(comment)) + ')</span>');
         }
 
         var artistRenderer = function (prefix, artists) {
@@ -755,7 +757,7 @@ MB.Control.autocomplete_formatters = {
                 }
 
                 a.append('<br /><span class="autocomplete-comment">' +
-                         prefix + ': ' + _.escape(i18n.commaOnlyList(toRender)) + '</span>');
+                         prefix + ': ' + _.escape(commaOnlyList(toRender)) + '</span>');
             }
         };
 
@@ -783,7 +785,7 @@ MB.Control.autocomplete_formatters = {
             }
             items.push(renderContainingAreas(item));
             a.append('<br /><span class="autocomplete-comment">' +
-                     _.escape(i18n.commaOnlyList(items)) + '</span>');
+                     _.escape(commaOnlyList(items)) + '</span>');
         };
 
         return $("<li>").append(a).appendTo(ul);
@@ -807,7 +809,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
+                     _.escape(commaOnlyList(comment)) + ')</span>');
         }
 
         var area = item.area;
@@ -842,7 +844,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
+                     _.escape(commaOnlyList(comment)) + ')</span>');
         }
 
         if (item.description) {
@@ -871,7 +873,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append(' <span class="autocomplete-comment">(' +
-                     _.escape(i18n.commaOnlyList(comment)) + ')</span>');
+                     _.escape(commaOnlyList(comment)) + ')</span>');
         }
 
         if (item.typeName) {
@@ -893,7 +895,7 @@ MB.Control.autocomplete_formatters = {
                 }
 
                 a.append('<br /><span class="autocomplete-comment">' +
-                         prefix + ': ' + _.escape(i18n.commaOnlyList(toRender)) + '</span>');
+                         prefix + ': ' + _.escape(commaOnlyList(toRender)) + '</span>');
             }
         };
 
@@ -924,7 +926,7 @@ function getCatalogNumber(releaseLabel) {
 }
 
 function renderContainingAreas(area) {
-    return i18n.commaOnlyList(_(area.containment).pluck('name').value());
+    return commaOnlyList(_(area.containment).pluck('name').value());
 }
 
 /*
@@ -957,6 +959,7 @@ MB.Control.EntityAutocomplete = function (options) {
     if (!options.entity) {
         // guess the entity from span classes.
         _.any(_.keys(ENTITIES), function (entity) {
+            entity = entity.replace(/_/g, '-');
             if ($inputs.hasClass(entity)) {
                 options.entity = entity;
                 return true;

@@ -53,7 +53,7 @@ our @EXPORT_OK = (
         $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID
         $COVERART_FRONT_TYPE $COVERART_BACK_TYPE
         $AREA_TYPE_COUNTRY $AREA_TYPE_CITY
-        $ARTIST_TYPE_PERSON
+        $ARTIST_TYPE_PERSON $ARTIST_TYPE_GROUP
         $INSTRUMENT_ROOT_ID $VOCAL_ROOT_ID
         $REQUIRED_VOTES $OPEN_EDIT_DURATION
         $MINIMUM_RESPONSE_PERIOD $MINIMUM_VOTING_PERIOD
@@ -65,6 +65,7 @@ our @EXPORT_OK = (
         $MAX_INITIAL_MEDIUMS
         $MAX_POSTGRES_INT
         @FULL_TABLE_LIST
+        $CONTACT_URL
         %ENTITIES entities_with
     ),
 );
@@ -319,6 +320,7 @@ Readonly our $AREA_TYPE_COUNTRY => 1;
 Readonly our $AREA_TYPE_CITY => 3;
 
 Readonly our $ARTIST_TYPE_PERSON => 1;
+Readonly our $ARTIST_TYPE_GROUP => 2;
 
 Readonly our $REQUIRED_VOTES => 3;
 Readonly our $OPEN_EDIT_DURATION => DateTime::Duration->new(days => 7);
@@ -354,6 +356,8 @@ Readonly our $PART_OF_AREA_LINK_TYPE => 'de7cc874-8b1b-3a05-8272-f3834c968fb7';
 Readonly our $MAX_INITIAL_MEDIUMS => 10;
 
 Readonly our $MAX_POSTGRES_INT => 2147483647;
+
+Readonly our $CONTACT_URL => 'https://metabrainz.org/contact';
 
 Readonly our %ENTITIES => %{
     decode_json(read_file(File::Spec->catfile(dirname(__FILE__), '../../../entities.json')))
